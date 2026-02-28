@@ -384,7 +384,7 @@ export const buildSchedule = (): DayPlan[] => {
       grade: "9-sinf",
       topics: createTopics(slice, "O'zbekiston tarixi", "9-sinf", date, startIdx),
     });
-  });
+  }
 
   // Mar 20-23: 9-sinf Jahon tarixi (8, 8, 8, 7)
   [8, 8, 8, 7].forEach((count, i) => {
