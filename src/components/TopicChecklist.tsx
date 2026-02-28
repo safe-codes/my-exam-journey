@@ -10,29 +10,28 @@ interface TopicChecklistProps {
 
 const TopicChecklist = ({ topics, completedTopics, onToggle }: TopicChecklistProps) => {
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-2">
       {topics.map((topic, index) => {
         const isCompleted = completedTopics.has(topic.id);
         return (
           <motion.button
             key={topic.id}
-            initial={{ opacity: 0, x: -8 }}
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.025 }}
+            transition={{ delay: index * 0.03 }}
             onClick={() => onToggle(topic.id)}
-            className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-all active:scale-[0.98] ${
+            className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all ${
               isCompleted
-                ? "bg-primary/8 border border-primary/15"
-                : "bg-muted/40 border border-transparent hover:border-border hover:bg-muted/70"
+                ? "bg-primary/10 border border-primary/20"
+                : "bg-muted/50 border border-transparent hover:border-border"
             }`}
           >
-            <motion.div
-              className={`flex-shrink-0 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors ${
+            <div
+              className={`flex-shrink-0 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
                 isCompleted
                   ? "bg-primary border-primary"
-                  : "border-muted-foreground/25"
+                  : "border-muted-foreground/30"
               }`}
-              whileTap={{ scale: 0.85 }}
             >
               {isCompleted && (
                 <motion.div
@@ -43,14 +42,8 @@ const TopicChecklist = ({ topics, completedTopics, onToggle }: TopicChecklistPro
                   <Check className="w-3 h-3 text-primary-foreground" />
                 </motion.div>
               )}
-            </motion.div>
-            <span
-              className={`text-sm leading-snug ${
-                isCompleted
-                  ? "text-muted-foreground line-through decoration-muted-foreground/40"
-                  : "text-foreground font-medium"
-              }`}
-            >
+            </div>
+            <span className={`text-sm font-medium ${isCompleted ? "text-muted-foreground line-through" : "text-foreground"}`}>
               {topic.name}
             </span>
           </motion.button>
