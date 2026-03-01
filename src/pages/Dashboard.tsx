@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { CalendarDays, BookOpen, Target, Trophy } from "lucide-react";
-import { getTodayPlan, getDaysRemaining, TOTAL_TOPICS, getAllTopics } from "@/data/schedule";
+import { getTodayPlan, getDaysRemaining, TOTAL_TOPICS } from "@/data/schedule";
 import { useTopicProgress } from "@/hooks/useTopicProgress";
 import CircularProgress from "@/components/CircularProgress";
 import TopicChecklist from "@/components/TopicChecklist";
 import StatCard from "@/components/StatCard";
+import StreakCard from "@/components/StreakCard";
 import Navbar from "@/components/Navbar";
 
 const Dashboard = () => {
@@ -36,6 +37,11 @@ const Dashboard = () => {
         <div className="grid grid-cols-2 gap-3 mb-6">
           <StatCard icon={CalendarDays} label="Qolgan kunlar" value={daysRemaining} accent />
           <StatCard icon={BookOpen} label="O'qilgan mavzular" value={`${completedCount}/${TOTAL_TOPICS}`} />
+        </div>
+
+        {/* Streak */}
+        <div className="mb-6">
+          <StreakCard />
         </div>
 
         {/* Progress */}
