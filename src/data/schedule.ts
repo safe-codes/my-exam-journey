@@ -47,86 +47,43 @@ export const buildSchedule = (): DayPlan[] => {
     return start;
   };
 
-  // Feb 28 - Mar 6: 7-sinf O'zbekiston tarixi (8 topics/day) = 7 days × 8 = 56
-  const key7oz = "ozbekiston-tarixi";
-  for (let d = 28; d <= 28; d++) {
-    const date = formatDate(2026, 2, d);
-    const start = getNext(`7-${key7oz}`, 8);
+  const add = (date: string, label: string, subject: string, grade: string, count: number) => {
+    const key = `${grade}-${subject}`;
+    const start = getNext(key, count);
     plans.push({
-      date, label: `7-sinf O'zbekiston tarixi`, subject: "O'zbekiston tarixi", grade: "7-sinf",
-      topics: generateTopics("O'zbekiston tarixi", "7-sinf", start, 8, date),
+      date, label, subject, grade,
+      topics: generateTopics(subject, grade, start, count, date),
     });
-  }
-  for (let d = 1; d <= 6; d++) {
-    const date = formatDate(2026, 3, d);
-    const start = getNext(`7-${key7oz}`, 8);
-    plans.push({
-      date, label: `7-sinf O'zbekiston tarixi`, subject: "O'zbekiston tarixi", grade: "7-sinf",
-      topics: generateTopics("O'zbekiston tarixi", "7-sinf", start, 8, date),
-    });
+  };
+
+  // Mar 1-8: 7-sinf O'zbekiston tarixi (7/day × 8 = 56)
+  for (let d = 1; d <= 8; d++) {
+    add(formatDate(2026, 3, d), "7-sinf O'zbekiston tarixi", "O'zbekiston tarixi", "7-sinf", 7);
   }
 
-  // Mar 7-9: 7-sinf Jahon tarixi (8, 8, 7)
-  const key7jt = "jahon-tarixi";
+  // Mar 9-11: 7-sinf Jahon tarixi (8, 8, 7 = 23)
   [8, 8, 7].forEach((count, i) => {
-    const date = formatDate(2026, 3, 7 + i);
-    const start = getNext(`7-${key7jt}`, count);
-    plans.push({
-      date, label: `7-sinf Jahon tarixi`, subject: "Jahon tarixi", grade: "7-sinf",
-      topics: generateTopics("Jahon tarixi", "7-sinf", start, count, date),
-    });
+    add(formatDate(2026, 3, 9 + i), "7-sinf Jahon tarixi", "Jahon tarixi", "7-sinf", count);
   });
 
-  // Mar 10-12: 8-sinf O'zbekiston tarixi (9, 9, 8)
-  [9, 9, 8].forEach((count, i) => {
-    const date = formatDate(2026, 3, 10 + i);
-    const start = getNext(`8-${key7oz}`, count);
-    plans.push({
-      date, label: `8-sinf O'zbekiston tarixi`, subject: "O'zbekiston tarixi", grade: "8-sinf",
-      topics: generateTopics("O'zbekiston tarixi", "8-sinf", start, count, date),
-    });
+  // Mar 12-15: 8-sinf O'zbekiston tarixi (7, 7, 6, 6 = 26)
+  [7, 7, 6, 6].forEach((count, i) => {
+    add(formatDate(2026, 3, 12 + i), "8-sinf O'zbekiston tarixi", "O'zbekiston tarixi", "8-sinf", count);
   });
 
-  // Mar 13-15: 8-sinf Jahon tarixi (8, 8, 9)
-  [8, 8, 9].forEach((count, i) => {
-    const date = formatDate(2026, 3, 13 + i);
-    const start = getNext(`8-${key7jt}`, count);
-    plans.push({
-      date, label: `8-sinf Jahon tarixi`, subject: "Jahon tarixi", grade: "8-sinf",
-      topics: generateTopics("Jahon tarixi", "8-sinf", start, count, date),
-    });
+  // Mar 16-18: 8-sinf Jahon tarixi (9, 8, 8 = 25)
+  [9, 8, 8].forEach((count, i) => {
+    add(formatDate(2026, 3, 16 + i), "8-sinf Jahon tarixi", "Jahon tarixi", "8-sinf", count);
   });
 
-  // Mar 16-19: 9-sinf O'zbekiston tarixi (9/day)
-  for (let d = 16; d <= 19; d++) {
-    const date = formatDate(2026, 3, d);
-    const start = getNext(`9-${key7oz}`, 9);
-    plans.push({
-      date, label: `9-sinf O'zbekiston tarixi`, subject: "O'zbekiston tarixi", grade: "9-sinf",
-      topics: generateTopics("O'zbekiston tarixi", "9-sinf", start, 9, date),
-    });
-  }
+  // Mar 19-23: 9-sinf O'zbekiston tarixi (8, 7, 7, 7, 7 = 36)
+  [8, 7, 7, 7, 7].forEach((count, i) => {
+    add(formatDate(2026, 3, 19 + i), "9-sinf O'zbekiston tarixi", "O'zbekiston tarixi", "9-sinf", count);
+  });
 
-  // Mar 20-23: 9-sinf Jahon tarixi (8, 8, 8, 7)
+  // Mar 24-27: 9-sinf Jahon tarixi (8, 8, 8, 7 = 31)
   [8, 8, 8, 7].forEach((count, i) => {
-    const date = formatDate(2026, 3, 20 + i);
-    const start = getNext(`9-${key7jt}`, count);
-    plans.push({
-      date, label: `9-sinf Jahon tarixi`, subject: "Jahon tarixi", grade: "9-sinf",
-      topics: generateTopics("Jahon tarixi", "9-sinf", start, count, date),
-    });
-  });
-
-  // Mar 24-27: Intensive Revision
-  const revisionLabels = [
-    "7-sinf Takrorlash", "8-sinf Takrorlash", "9-sinf Takrorlash", "Yakuniy Takrorlash"
-  ];
-  [7, 8, 9, 5].forEach((count, i) => {
-    const date = formatDate(2026, 3, 24 + i);
-    plans.push({
-      date, label: revisionLabels[i], subject: "Takrorlash", grade: revisionLabels[i],
-      topics: generateTopics("Takrorlash", revisionLabels[i], 1, count, date),
-    });
+    add(formatDate(2026, 3, 24 + i), "9-sinf Jahon tarixi", "Jahon tarixi", "9-sinf", count);
   });
 
   // Mar 28: Exam Day
