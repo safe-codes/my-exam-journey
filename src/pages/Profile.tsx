@@ -1,15 +1,23 @@
 import { motion } from "framer-motion";
-import { LogOut, Mail, Shield } from "lucide-react";
+import { LogOut, Mail, Shield, Sun, Moon, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useTopicProgress } from "@/hooks/useTopicProgress";
+import { useTheme } from "@/components/ThemeProvider";
 import { TOTAL_TOPICS } from "@/data/schedule";
 import CircularProgress from "@/components/CircularProgress";
 import Navbar from "@/components/Navbar";
 
+const themeOptions = [
+  { value: "light" as const, icon: Sun, label: "Yorug'" },
+  { value: "dark" as const, icon: Moon, label: "Qorong'u" },
+  { value: "system" as const, icon: Monitor, label: "Tizim" },
+];
+
 const Profile = () => {
   const { user, signOut } = useAuth();
   const { completedTopics } = useTopicProgress();
+  const { theme, setTheme } = useTheme();
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -44,6 +52,32 @@ const Profile = () => {
           <p className="text-center text-sm text-muted-foreground mt-2">
             {completedTopics.size} / {TOTAL_TOPICS} mavzu o'qildi
           </p>
+        </motion.div>
+
+        {/* Theme Toggle */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+          className="glass-card rounded-2xl p-4 mb-4"
+        >
+          <p className="text-xs text-muted-foreground mb-3">Mavzu</p>
+          <div className="grid grid-cols-3 gap-2">
+            {themeOptions.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setTheme(opt.value)}
+                className={`flex flex-col items-center gap-1.5 py-3 rounded-xl text-sm font-medium transition-all ${
+                  theme === opt.value
+                    ? "bg-primary/10 text-primary border border-primary/20"
+                    : "bg-muted/50 text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                <opt.icon className="w-4 h-4" />
+                <span className="text-xs">{opt.label}</span>
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         <motion.div
