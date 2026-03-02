@@ -56,9 +56,9 @@ export const buildSchedule = (): DayPlan[] => {
     });
   };
 
-  // Mar 1-8: 7-sinf O'zbekiston tarixi (7/day × 8 = 56)
-  for (let d = 1; d <= 8; d++) {
-    add(formatDate(2026, 3, d), "7-sinf O'zbekiston tarixi", "O'zbekiston tarixi", "7-sinf", 7);
+  // Mar 2-8: 7-sinf O'zbekiston tarixi (8/day × 7 = 56)
+  for (let d = 2; d <= 8; d++) {
+    add(formatDate(2026, 3, d), "7-sinf O'zbekiston tarixi", "O'zbekiston tarixi", "7-sinf", 8);
   }
 
   // Mar 9-11: 7-sinf Jahon tarixi (8, 8, 7 = 23)
